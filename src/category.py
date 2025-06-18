@@ -29,6 +29,7 @@ class Category:
 
     @property
     def products_str(self):
+        """Предоставление возможность просмотра товаров"""
         products_str = ""
         for product in self.__products:
             products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
