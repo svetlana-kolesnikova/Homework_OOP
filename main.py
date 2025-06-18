@@ -1,45 +1,6 @@
-class Product:
-    """Класс для создания продуктов"""
-    name: str
-    description: str
-    price: float
-    quantity: int
-    
+from src.category import Category
+from src.products import Product
 
-    def __init__(self, name, description, price, quantity):
-        """Метод для инициализации экземпляра класса. Задаем значения атрибутам экземпляра."""
-        self.name = name
-        self.description = description
-        self.price = price
-        self.quantity = quantity
-
-
-class Category:
-    """Класс для создания категорий"""
-    name: str
-    description: str
-    products: list
-    
-    product_count = 0  # Инициализация атрибута класса
-    category_count = 0  # Инициализация атрибута класса
-
-    def __init__(self, name, description, products):
-        """Метод для инициализации экземпляра класса. Задаем значения атрибутам экземпляра."""
-        self.name = name
-        self.description = description
-        self.products = products
-        Category.category_count += 1
-        Category.product_count += sum(product.quantity for product in products)
-    
-    def get_category_count(self):
-        """Возвращает общее количество категорий"""
-        return Category.category_count
-    
-    def get_product_count(self):
-        """Возвращает общее количество продуктов"""
-        return Category.product_count
-    
-    
 if __name__ == "__main__":
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
