@@ -17,10 +17,46 @@ def products():
 def reset_category_count():
     Category.category_count = 0
     yield
-    
+
 
 @pytest.fixture(autouse=True)
 def reset_product_count():
     Category.product_count = 0
     yield
 
+
+@pytest.fixture
+def new_product():
+    return Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+
+
+@pytest.fixture
+def new_product_dict():
+    new_product = {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 5,
+    }
+    return new_product
+
+
+@pytest.fixture
+def new_product_dict_price_0():
+    new_product = {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 0.0,
+        "quantity": 5,
+    }
+    return new_product
+
+
+@pytest.fixture
+def new_product_price_0():
+    return Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 0, 5)
+
+
+@pytest.fixture
+def new_price_0():
+    return 0
