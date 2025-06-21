@@ -23,7 +23,7 @@ class Product:
     def __add__(self, other):
         """Метод возвращает результат сложения сумм всех товаров двух категорий"""
         if isinstance(other, Product):  # проверяем, является ли other объектом класса Product
-            return (self.__price * self.quantity) + (other.__price * other.quantity)
+            return (self.price * self.quantity) + (other.price * other.quantity)
         else:
             raise ValueError("Other не является объектом класса Product")
 
