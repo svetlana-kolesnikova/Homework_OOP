@@ -1,9 +1,11 @@
-from main import Category, Product
+from src.products import Product
+from src.category import Category
 
 
 def test_category_creation_and_attributes(products):
     """Тест на успешное создание категорий"""
     p1, p2, p3, p4, p5 = products
+
     category = Category("Смартфоны", "Описание категории", [p1, p2, p3])
     assert category.name == "Смартфоны"
     assert category.description == "Описание категории"
@@ -86,3 +88,8 @@ def test_products_str_output_format(products):
 
     assert expected_line_1 in output
     assert expected_line_2 in output
+
+
+def test_category_str(new_category):
+    """Тест на возвращение строи содержимого категории в заданном формате"""
+    assert str(new_category) == "Категория новая, количество продуктов: 44 шт."

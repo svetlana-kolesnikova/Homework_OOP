@@ -1,6 +1,7 @@
 import pytest
-
-from main import Category, Product
+from src.products import Product
+from src.category import Category
+from src.iterator import ProductIterator
 
 
 @pytest.fixture
@@ -28,6 +29,11 @@ def reset_product_count():
 @pytest.fixture
 def new_product():
     return Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+
+
+@pytest.fixture
+def new_product1():
+    return Product("Apple SE2020", "256GB, Серый цвет, 200MP камера", 60000.0, 6)
 
 
 @pytest.fixture
@@ -60,3 +66,13 @@ def new_product_price_0():
 @pytest.fixture
 def new_price_0():
     return 0
+
+
+@pytest.fixture
+def new_category(products):
+    return Category("Категория новая", "Описание", [*products])
+
+
+@pytest.fixture
+def product_iterator(new_category):
+    return ProductIterator(new_category)

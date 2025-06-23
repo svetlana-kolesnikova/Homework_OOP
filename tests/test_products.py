@@ -56,3 +56,21 @@ def test_price_set_lower_with_user_confirmation_no(monkeypatch, new_product):
     monkeypatch.setattr("builtins.input", lambda _: "no")
     new_product.price = new_product.price
     assert new_product.price == new_product.price
+
+
+def test_product_str(new_product):
+    """Проверка вывода строки содержимого продукта в заданном формате"""
+    assert str(new_product) == "Samsung Galaxy S23 Ultra, 180000.0 руб., Остаток: 5 шт."
+
+
+def test_product_add(new_product, new_product1):
+    """Тест сложения сумм всех товаром двух продуктов"""
+    result = new_product + new_product1
+    assert result == 1260000.0
+
+
+def test_product_add_oter_not_product_obj(new_product):
+    """Тест проверки отлова ошибки, если второй продукт не является объектом класса Product"""
+    new_product2 = "Samsung Galaxy S23 Ultra, 180000.0 руб., Остаток: 5 шт."
+    with pytest.raises(ValueError):
+        new_product + new_product2
