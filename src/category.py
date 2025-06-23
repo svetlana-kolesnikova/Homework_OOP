@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.products import Product
 
 
@@ -11,7 +13,7 @@ class Category:
     product_count = 0  # Инициализация атрибута класса
     category_count = 0  # Инициализация атрибута класса
 
-    def __init__(self, name, description, products):
+    def __init__(self, name: str, description: str, products: list) -> None:
         """Метод для инициализации экземпляра класса. Задаем значения атрибутам экземпляра."""
         self.name = name
         self.description = description
@@ -19,46 +21,49 @@ class Category:
         Category.category_count += 1
         Category.product_count += sum(product.quantity for product in products)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Метод возвращает строку содержимого категории в заданном формате"""
         # сумма количества всех продуктов в категории
         summ_products = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {summ_products} шт."
 
-    def get_category_count(self):
+    def get_category_count(self) -> Any:
         """Возвращает общее количество категорий"""
         return Category.category_count
 
-    def get_product_count(self):
+    def get_product_count(self) -> Any:
         """Возвращает общее количество продуктов"""
         return Category.product_count
 
     @property
-    def products_str(self):
+    def products_str(self) -> str:
         """Предоставление возможность просмотра товаров"""
         products_str = ""
         for product in self.__products:
             products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return products_str
 
-    def add_product(self, product: Product):
+    def add_product(self, product: Product) -> Any:
         """Добавление нового продукта с проверкой на наличие такого
         продукта и решением конфликта цены в сторону большей"""
-        for p in self.__products:
-            if p.name == product.name:
-                if p.price >= product.price:
-                    product.price = p.price
-                elif p.price < product.price:
-                    p.price = product.price
-                p.quantity += product.quantity
-                Category.product_count += product.quantity
-                return
+        if isinstance(product, Product):
+            for p in self.__products:
+                if p.name == product.name:
+                    if p.price >= product.price:
+                        product.price = p.price
+                    elif p.price < product.price:
+                        p.price = product.price
+                    p.quantity += product.quantity
+                    Category.product_count += product.quantity
+                    return
+        else:
+            raise TypeError
 
         self.__products.append(product)
         Category.product_count += product.quantity
 
     @property
-    def products(self):
+    def products(self) -> list:
         """Геттер возвращает приватный атрибут __products"""
         return self.__products
 
