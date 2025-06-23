@@ -1,7 +1,9 @@
+from typing import Any
+
 import pytest
 
 
-def test_iterator(product_iterator):
+def test_iterator(product_iterator) -> Any:
     """Тест итератора"""
     iter(product_iterator)  # переопределение индекса для гарантии, что индекс переопределится на 0
     assert product_iterator.index == 0  # проверка нулевого индекса
