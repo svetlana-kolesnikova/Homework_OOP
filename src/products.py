@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class Product:
     """Класс для создания продуктов"""
 
@@ -6,7 +9,7 @@ class Product:
     price: float
     quantity: int
 
-    def __init__(self, name, description, price, quantity):
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """Метод для инициализации экземпляра класса. Задаем значения атрибутам экземпляра."""
         # if price <= 0:
         #     raise ValueError("Цена не может быть нулевой или отрицательной. Объект не создан.")
@@ -16,11 +19,11 @@ class Product:
         self.quantity = quantity
         self.__price = price
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Метод возвращает строку содержимого продукта в заданном формате"""
         return f"{self.name}, {self.__price} руб., Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
+    def __add__(self, other: Any) -> float:
         """Метод возвращает результат сложения сумм всех товаров двух категорий"""
         if isinstance(other, Product):  # проверяем, является ли other объектом класса Product
             return (self.price * self.quantity) + (other.price * other.quantity)
@@ -28,7 +31,7 @@ class Product:
             raise ValueError("Other не является объектом класса Product")
 
     @property
-    def price(self):
+    def price(self) -> Any:
         """Геттер возвращает приватный атрибут __price"""
         if self.__price <= 0:
             print("Цена не может быть нулевой или отрицательной.")
@@ -36,7 +39,7 @@ class Product:
         return self.__price
 
     @price.setter
-    def price(self, new_price):
+    def price(self, new_price: float) -> Any:
         """Проверка цены на ввод положительного числа и числа не равного нулю"""
         if new_price <= 0:
             raise ValueError("Цена должна быть положительной.")
@@ -51,7 +54,7 @@ class Product:
             self.__price = new_price
 
     @classmethod
-    def new_product(cls, dict_product):
+    def new_product(cls, dict_product: dict) -> Any:
         """Создает объект Product, если цена положительная. Иначе возвращает None."""
         if dict_product["price"] <= 0:
             print("Ошибка: цена не может быть нулевой или отрицательной. Объект не создан.")

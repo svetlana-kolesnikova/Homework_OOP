@@ -1,19 +1,21 @@
+from typing import Iterator, Any
+
 from src.category import Category
 from src.products import Product
 
 
-class ProductIterator:
+class ProductIterator(Iterator):
     """Итератор для перебора продуктов в списке продуктов экземпляра класса Category"""
 
-    def __init__(self, product_object):
+    def __init__(self, product_object: Any):
         self.category = product_object  # объект класса - экземпляр класса Category
         self.index = 0  # стартовая точка итерации
 
-    def __iter__(self):
+    def __iter__(self) -> "ProductIterator":
         self.index = 0  # чтоб каждый новый вызов итератора начинался сначала
         return self
 
-    def __next__(self):
+    def __next__(self) -> Any:
         if self.index < len(self.category.products):
             product = self.category.products[self.index]  # обращаемся к экземпляру products экземпляра category
             self.index += 1

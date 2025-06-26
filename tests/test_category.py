@@ -1,9 +1,15 @@
-from src.products import Product
+from typing import Any
+
+import pytest
+
 from src.category import Category
+from src.products import Product
 
 
-def test_category_creation_and_attributes(products):
-    """Тест на успешное создание категорий"""
+def test_category_creation_and_attributes(products) -> Any:
+    """
+    Тест на успешное создание категорий
+    """
     p1, p2, p3, p4, p5 = products
 
     category = Category("Смартфоны", "Описание категории", [p1, p2, p3])
@@ -12,8 +18,10 @@ def test_category_creation_and_attributes(products):
     assert len(category.products) == 3
 
 
-def test_category_count_increment(products):
-    """Тест на подсчет категорий"""
+def test_category_count_increment(products) -> Any:
+    """
+    Тест на подсчет категорий
+    """
     p1, p2, p3, p4, p5 = products
     assert Category.category_count == 0
     Category("Категория 1", "Описание", [p1, p2, p3, p4, p5])
@@ -22,8 +30,10 @@ def test_category_count_increment(products):
     assert Category.category_count == 2
 
 
-def test_product_count_property(products):
-    """Тест на получение общего количества единиц продуктов"""
+def test_product_count_property(products) -> Any:
+    """
+    Тест на получение общего количества единиц продуктов
+    """
     p1, p2, p3, p4, p5 = products
 
     Category("Смартфоны", "Описание", [p1, p2, p3])
@@ -31,14 +41,18 @@ def test_product_count_property(products):
     assert Category.product_count == 5 + 8 + 14 + 7 + 10
 
 
-def test_product_count_empty_category():
-    """Тест на отсутствие категорий и продуктов"""
+def test_product_count_empty_category() -> Any:
+    """
+    Тест на отсутствие категорий и продуктов
+    """
     category = Category("Пустая категория", "Нет продуктов", [])
     assert category.product_count == 0
 
 
-def test_category_and_product_counts():
-    """Тест на подсчёт количества категорий и количества продуктов"""
+def test_category_and_product_counts() -> Any:
+    """
+    Тест на подсчёт количества категорий и количества продуктов
+    """
     Category.category_count = 0
     Category.product_count = 0
 
@@ -52,8 +66,10 @@ def test_category_and_product_counts():
     assert cat2.get_product_count() == 5
 
 
-def test_add_duplicate_product_lower_price_keeps_higher(products):
-    """Тест: добавление дубликата с меньшей ценой — сохраняется более высокая цена"""
+def test_add_duplicate_product_lower_price_keeps_higher(products) -> Any:
+    """
+    Тест: добавление дубликата с меньшей ценой — сохраняется более высокая цена
+    """
     p1 = Product("Продукт", "Описание", 1000.0, 5)
     category = Category("Категория", "Описание", [p1])
 
@@ -65,8 +81,10 @@ def test_add_duplicate_product_lower_price_keeps_higher(products):
     assert updated_product.quantity == 7  # количество увеличилось
 
 
-def test_add_duplicate_product_higher_price_overwrites(products):
-    """Тест: добавление дубликата с более высокой ценой — цена обновляется"""
+def test_add_duplicate_product_higher_price_overwrites(products) -> Any:
+    """
+    Тест: добавление дубликата с более высокой ценой — цена обновляется
+    """
     p1 = Product("Продукт", "Описание", 1000.0, 5)
     category = Category("Категория", "Описание", [p1])
 
@@ -78,8 +96,10 @@ def test_add_duplicate_product_higher_price_overwrites(products):
     assert updated_product.quantity == 7
 
 
-def test_products_str_output_format(products):
-    """Тест строкового представления товаров в категории"""
+def test_products_str_output_format(products) -> Any:
+    """
+    Тест строкового представления товаров в категории
+    """
     category = Category("Смартфоны", "Описание", products[:2])
     output = category.products_str
 
@@ -90,6 +110,22 @@ def test_products_str_output_format(products):
     assert expected_line_2 in output
 
 
-def test_category_str(new_category):
-    """Тест на возвращение строи содержимого категории в заданном формате"""
+def test_category_str(new_category) -> Any:
+    """
+    Тест на возвращение строи содержимого категории в заданном формате
+    """
     assert str(new_category) == "Категория новая, количество продуктов: 44 шт."
+
+
+def test_add_product(new_product_smartphone1) -> Any:
+    """
+    Тестирование отлова ошибки при добавлении в категорию объекта, не являющегося объектом класса Product
+    """
+    p1 = Product("Продукт", "Описание", 1000.0, 5)
+    p2 = Product("Продукт2", "Описание2", 1000.0, 5)
+    category = Category("Категория", "Описание", [p1])
+    with pytest.raises(TypeError):
+        category.add_product("Не продукт")
+
+    category.add_product(p2)
+    assert Category.product_count == 10
