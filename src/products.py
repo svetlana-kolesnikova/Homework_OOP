@@ -1,9 +1,13 @@
 from typing import Any
 
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(BaseProduct, PrintMixin):
     """Класс для создания продуктов"""
 
+    repr = None
     name: str
     description: str
     price: float
@@ -18,6 +22,7 @@ class Product:
         self.description = description
         self.quantity = quantity
         self.__price = price
+        super().__init__()
 
     def __str__(self) -> str:
         """Метод возвращает строку содержимого продукта в заданном формате"""
@@ -75,3 +80,4 @@ if __name__ == "__main__":
     print(p1)
     print(p3)
     print(p1 + p3)
+    print(Product.__mro__)
