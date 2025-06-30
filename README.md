@@ -3,6 +3,13 @@
 ### Электронная система платежей
 
 ## Классы
+BaseProduct  [base_product.py](src/base_product.py)
+- Является абстрактным классом для класса Product
+
+PrintMixin  [print_mixin.py](src/print_mixin.py)
+- Класс-миксин. Выводит печатать в консоль информацию о том, 
+от какого класса и с какими параметрами был создан объект
+
 
 Product  [products.py](src/products.py)
 - Добавляет новой продукт.
@@ -18,7 +25,7 @@ ProductIterator  [iterator.py](src/iterator.py)
 - Итератор для перебора продуктов в списке продуктов экземпляра класса Category
 
 
-### Дочернии классы Класса Product
+### Дочерний классы Класса Product
 
 LawnGrass  [lawngrass.py](src/lawngrass.py)
 - Добавляет новой продукт с проверкой принадлежности к дочернему классу LawnGrass
