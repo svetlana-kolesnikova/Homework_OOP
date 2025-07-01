@@ -67,18 +67,25 @@ class Category:
         """Геттер возвращает приватный атрибут __products"""
         return self.__products
 
+    def middle_price(self) -> Any:
+        """Метод для подсчета средней цены товаров в категории"""
+        try:
+            return round((sum([product.price for product in self.__products]) / len(self.__products)), 2)
+        except ZeroDivisionError:
+            return 0
+
 
 if __name__ == "__main__":
     p1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     p2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     p3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
     p4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
-    p5 = Product('65" QLED 2K', "Фоновая подсветка отсутствует", 100000.0, 10)
+    p5 = Product('65" QLED 2K', "Фоновая подсветка отсутствует", 100000.0, 100)
 
     category1 = Category("Категория 1", "Описание", [p1, p2])
     category2 = Category("Категория 2", "Описание", [p3, p4, p5])
 
-    p6 = Product("Samsung QLED 2K", "Фоновая подсветка отсутствует", 110000.0, 20)
+    p6 = Product("Samsung QLED 2K", "Фоновая подсветка отсутствует", 110000.0, 0)
 
     print(p1)
     print(p6)

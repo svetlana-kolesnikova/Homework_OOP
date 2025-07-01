@@ -102,3 +102,9 @@ def new_product_lawngrass1() -> Any:
 @pytest.fixture
 def new_product_lawngrass2() -> Any:
     return LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+
+
+@pytest.fixture
+def category_without_products(products: tuple) -> Any:
+    return Category("Категория новая", "Описание", [])
+

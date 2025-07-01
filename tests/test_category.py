@@ -129,3 +129,18 @@ def test_add_product(new_product_smartphone1) -> Any:
 
     category.add_product(p2)
     assert Category.product_count == 10
+
+
+def test_middle_price(new_category, category_without_products) -> Any:
+    """Тестирование метода, который подсчитывает среднюю цену товаров в категории"""
+    assert new_category.middle_price() == 128800.0  # если в категории есть товары
+    assert category_without_products.middle_price() == 0  # если в категории товары отсутствуют
+
+
+def test_exeptions(capsys, new_category) -> Any:
+    """Вызов ошибки при добавлении продукта с нулевым количеством"""
+    assert len(new_category.products) == 5
+
+    with pytest.raises(ValueError) as e:
+        e == 'Товар с нулевым количеством не может быть добавлен'
+        p1 = Product("Продукт", "Описание", 1000.0, 0)
